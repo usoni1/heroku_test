@@ -19,6 +19,12 @@ def post():
     shout_id = collection.insert(shout)
     return redirect('/')
 
+@app.route("/user_star", methods=['GET'])
+def starred():
+    shout = {"name" : "stars", "message" : "It works <3"}
+    shout_id = collection.insert(shout)
+    return redirect('/')
+
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
     app.run(host='0.0.0.0', port=port)
