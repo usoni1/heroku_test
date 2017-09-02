@@ -21,7 +21,7 @@ def post():
 
 @app.route("/user_star", methods=['GET'])
 def starred():
-    shout = {"name" : "stars", "message" : "It works <3"}
+    shout = {"name" : "Yatarh", "message" : "He a nasty Dinchuk bitch!"}
     shout_id = collection.insert(shout)
     return redirect('/')
 
