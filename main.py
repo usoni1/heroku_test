@@ -21,8 +21,8 @@ def post():
 
 @app.route("/user_star", methods=['GET', 'POST'])
 def starred():
-    data = request.get_data()
-    shout = {"name": "test1", "message": str(data)}
+    data = request.get_json()
+    shout = {"name": "final_test9093", "message": str(data)}
     shout_id = collection.insert(shout)
     return redirect('/')
 
