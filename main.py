@@ -19,9 +19,10 @@ def post():
     shout_id = collection.insert(shout)
     return redirect('/')
 
-@app.route("/user_star", methods=['GET'])
+@app.route("/user_star", methods=['GET', 'POST'])
 def starred():
-    shout = {"name" : "Yatarh", "message" : "He a nasty Dinchuk bitch!"}
+    data = request.get_json()
+    shout = {"name": "test1", "message": str(data)}
     shout_id = collection.insert(shout)
     return redirect('/')
 
