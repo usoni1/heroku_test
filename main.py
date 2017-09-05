@@ -1,29 +1,32 @@
 import os
-from flask import Flask, render_template, request, redirect
+from flask import Flask, render_template, request, redirect, session
 from pymongo import MongoClient
 
 MONGO_URL = os.environ.get('MONGOHQ_URL')
 client = MongoClient(MONGO_URL)
 app = Flask(__name__)
 db = client.app76102553
-collection = db.shoutouts
+users_collection = db.users
 
 @app.route("/", methods=['GET'])
 def index():
-    shouts = collection.find()
-    return render_template('index.html', shouts = shouts)
+    return render_template('index.html')
 
 @app.route("/post", methods=['POST'])
 def post():
-    shout = {"name" : request.form['name'], "message" : request.form['message']}
-    shout_id = collection.insert(shout)
+    if request.form['action'] == 'signup':
+        user_data = {"username" : request.form['username'], "password" : request.form['password']}
+        users_collection.insert(user_data)
+        return redirect('/logged_in')
+    else:
+        cursor = users_collection.find({"username" : request.form['name'], "password" : request.form['password']})
+        if cursor.count == 1:
+            return redirect('/logged_in')
     return redirect('/')
 
 @app.route("/user_star", methods=['GET', 'POST'])
 def starred():
     data = request.get_json()
-    shout = {"name": "final_test9095", "message": str(data)}
-    shout_id = collection.insert(shout)
     return redirect('/')
 
 if __name__ == "__main__":
