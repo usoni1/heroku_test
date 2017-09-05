@@ -7,6 +7,7 @@ client = MongoClient(MONGO_URL)
 app = Flask(__name__)
 db = client.app76102553
 users_collection = db.users
+starred_collection = db.user_starred
 
 @app.route("/", methods=['GET'])
 def index():
@@ -22,6 +23,7 @@ def sign_up():
         elif request.form.get('action', None) == 'login':
             cursor = users_collection.find({"username" : request.form.get('username', None), "password" : request.form.get('password', None)})
             if cursor.count() == 1:
+                session["username"] = request.form.get('username', None)
                 return redirect('/logged_in')
             else:
                 return redirect('/')
@@ -31,11 +33,13 @@ def sign_up():
 
 @app.route("/logged_in", methods=['GET'])
 def logged_in():
+    # starred_collection.find({})
     return render_template('logged_in.html')
 
 @app.route("/user_star", methods=['GET', 'POST'])
 def starred():
     data = request.get_json()
+    starred_collection.insert(data)
     return redirect('/')
 
 if __name__ == "__main__":
