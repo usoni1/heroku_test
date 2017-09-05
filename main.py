@@ -12,7 +12,7 @@ users_collection = db.users
 def index():
     return render_template('index.html')
 
-@app.route("/post", methods=['POST'])
+@app.route("/post", methods=['GET', 'POST'])
 def post():
     if request.form['action'] == 'signup':
         user_data = {"username" : request.form['username'], "password" : request.form['password']}
