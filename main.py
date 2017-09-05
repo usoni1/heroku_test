@@ -12,9 +12,9 @@ users_collection = db.users
 def index():
     return render_template('index.html')
 
-@app.route("/post", methods=['GET', 'POST'])
-def post():
-    if request.form['action'] == 'signup':
+@app.route("/sign_up", methods=['GET', 'POST'])
+def sign_up():
+    if request.method == 'POST':
         user_data = {"username" : request.form['username'], "password" : request.form['password']}
         users_collection.insert(user_data)
         return redirect('/logged_in')
@@ -23,6 +23,10 @@ def post():
         if cursor.count == 1:
             return redirect('/logged_in')
     return redirect('/')
+
+@app.route("/logged_in", methods=['GET'])
+def logged_in():
+    return render_template('logged_in.html')
 
 @app.route("/user_star", methods=['GET', 'POST'])
 def starred():
