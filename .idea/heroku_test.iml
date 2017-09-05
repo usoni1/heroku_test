@@ -5,6 +5,14 @@
     <orderEntry type="jdk" jdkName="Python 2.7.13 virtualenv at C:\Users\usoni1\Google Drive\Fall_2017\Adaptive_Web\Assignment1\Heroku_test2\heroku_test\venv" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
   </component>
+  <component name="TemplatesService">
+    <option name="TEMPLATE_CONFIGURATION" value="Jinja2" />
+    <option name="TEMPLATE_FOLDERS">
+      <list>
+        <option value="$MODULE_DIR$/templates" />
+      </list>
+    </option>
+  </component>
   <component name="TestRunnerService">
     <option name="PROJECT_TEST_RUNNER" value="Unittests" />
   </component>

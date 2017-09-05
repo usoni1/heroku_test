@@ -15,13 +15,9 @@ def index():
 @app.route("/sign_up", methods=['GET', 'POST'])
 def sign_up():
     if request.method == 'POST':
-        user_data = {"username" : request.form['username'], "password" : request.form['password']}
+        user_data = {"username" : request.form.get('username', None), "password" : request.form.get('password', None)}
         users_collection.insert(user_data)
         return redirect('/logged_in')
-    else:
-        cursor = users_collection.find({"username" : request.form['name'], "password" : request.form['password']})
-        if cursor.count == 1:
-            return redirect('/logged_in')
     return redirect('/')
 
 @app.route("/logged_in", methods=['GET'])
