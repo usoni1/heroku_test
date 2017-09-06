@@ -5,6 +5,7 @@ from pymongo import MongoClient
 MONGO_URL = os.environ.get('MONGOHQ_URL')
 client = MongoClient(MONGO_URL)
 app = Flask(__name__)
+app.config['SECRET_KEY'] = 'hard to guess string'
 db = client.app76102553
 users_collection = db.users
 starred_collection = db.user_starred
