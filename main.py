@@ -41,7 +41,7 @@ def logged_in():
 @app.route("/user_star", methods=['GET', 'POST'])
 def starred():
     data = request.get_json()
-    starred_collection.insert(data)
+    starred_collection.insert(session.get('username', None))
     return redirect('/')
 
 @app.route("/url_time_spent", methods=['GET', 'POST'])
