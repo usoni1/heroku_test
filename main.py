@@ -9,6 +9,7 @@ db = client.app76102553
 users_collection = db.users
 starred_collection = db.user_starred
 url_time_spent_collection = db.url_time_spent
+user_vote_collection = db.user_vote
 
 @app.route("/", methods=['GET'])
 def index():
@@ -47,6 +48,12 @@ def starred():
 def url_time_spent():
     data = request.get_json()
     url_time_spent_collection.insert(data)
+    return redirect('/')
+
+@app.route("/user_vote", methods=['GET', 'POST'])
+def user_vote():
+    data = request.get_json()
+    user_vote_collection.insert(data)
     return redirect('/')
 
 if __name__ == "__main__":
