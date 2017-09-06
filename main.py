@@ -8,6 +8,7 @@ app = Flask(__name__)
 db = client.app76102553
 users_collection = db.users
 starred_collection = db.user_starred
+url_time_spent = db.url_time_spent
 
 @app.route("/", methods=['GET'])
 def index():
@@ -40,6 +41,12 @@ def logged_in():
 def starred():
     data = request.get_json()
     starred_collection.insert(data)
+    return redirect('/')
+
+@app.route("/url_time_spent", methods=['GET', 'POST'])
+def starred():
+    data = request.get_json()
+    url_time_spent.insert(data)
     return redirect('/')
 
 if __name__ == "__main__":
