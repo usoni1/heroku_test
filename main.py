@@ -44,7 +44,7 @@ def starred():
     return redirect('/')
 
 @app.route("/url_time_spent", methods=['GET', 'POST'])
-def starred():
+def url_time_spent():
     data = request.get_json()
     url_time_spent.insert(data)
     return redirect('/')
