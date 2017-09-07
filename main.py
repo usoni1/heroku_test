@@ -15,6 +15,7 @@ user_vote_collection = db.production_user_vote
 user_bookmarked_collection = db.production_user_bookmarked
 answer_time_spent_collection = db.production_answer_time_spent
 login_history_collection = db.production_login_history
+user_searched_collection = db.production_user_searched
 
 @app.route("/", methods=['GET'])
 def index():
@@ -118,6 +119,14 @@ def answer_time_spent():
     data["username"] = session.get('username', None)
     if data["username"] is not None:
         answer_time_spent_collection.insert(data)
+    return redirect('/')
+
+@app.route("/user_searched", methods = ['GET', 'POST'])
+def user_searched():
+    data = request.get_json()
+    data["username"] = session.get('username', None)
+    if data["username"] is not None:
+        user_searched_collection.insert(data)
     return redirect('/')
 
 if __name__ == "__main__":
