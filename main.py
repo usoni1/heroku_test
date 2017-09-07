@@ -9,7 +9,7 @@ app.config['SECRET_KEY'] = 'hard to guess string'
 db = client.app76102553
 users_collection = db.users
 starred_collection = db.user_starred
-url_time_spent_collection = db.url_time_spent
+time_spent_per_page_collection = db.time_spent_per_page
 user_vote_collection = db.user_vote
 
 @app.route("/", methods=['GET'])
@@ -50,7 +50,7 @@ def starred():
 def url_time_spent():
     data = request.get_json()
     data["username"] = session.get('username', None)
-    url_time_spent_collection.insert(data)
+    time_spent_per_page_collection.insert(data)
     return redirect('/')
 
 @app.route("/user_vote", methods=['GET', 'POST'])
