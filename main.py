@@ -16,6 +16,8 @@ answer_time_spent_collection = db.answer_time_spent
 
 @app.route("/", methods=['GET'])
 def index():
+    if(session.get("username", False)):
+        return redirect("/logged_in")
     return render_template('index.html', sign_up_success = session.get('sign_up_success', False), login_failure = session.get('login_failure', False))
 
 @app.route("/sign_up", methods=['GET', 'POST'])
