@@ -53,7 +53,7 @@ def sign_up():
 def logged_in():
     # starred_collection.find({})
     if(session.get("username", False)):
-        if(session.get("login"), False):
+        if(session.get("login", False)):
             session["login"] = False
             ts = time.time()
             st = datetime.datetime.fromtimestamp(ts).strftime('%Y-%m-%d %H %M %S')
