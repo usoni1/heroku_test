@@ -31,7 +31,9 @@ needed.This feature is specially interesting to know because then, I can know mu
     <li>Does he always like only accepted answers or does he read multiple answers and try them out</li>
 </ul>
 <h5> Time user spends on any Stackoverflow URL</h5>
-This is one the implicit feedback of user that I capture. I store the URL and the time user spent on it.
+This is one of the implicit feedback of user that I capture. I store the stackoverflow URL and the time user spends on it.
+Also, if a user simply browses away from the window or goes to a new tab, the timer for previous tab
+stops, so that you only get accurate timings.
 My assumption here is that if a user stays on any webpage longer then other, then there is something of real interest to the user on that page.
 So if I want the user's most favorite questions, topic, or other stackoverflow users, I can do so
 by going through the URLs and the time spent there. So, for instance, if later on I make a adaptive
@@ -45,7 +47,7 @@ very important to user as people mostly bookmark important webpages. Also, somet
 bookmark things on the internet for fast access to those links, hence, when I make the adaptive
 system I can display all the stackoverlfow bookmarks to user in a easily accessible place so they
 don't have to worry about arranging bookmarks themselves. I can also classify bookmarks at the server
-for creating a more organised directory without troubling the user.
+and create a more organised directory for helping the user find links even faster.
 
 <h5>Search Term</h5>
 This fairly simple feature tells us explicitly the topics user is interested in directly without
@@ -55,7 +57,10 @@ having to do any later web scraping. Thus, these data can be used for some insta
 This is again an implicit feedback. Now the user don't necessarily vote up or even star on
 interesting questions/answers. Mostly they are in a hurry to just get their problem solved.
 That is why i also track for how long the user's mouse stays over each answer in the webpage.
-I basically store an object for each url user visits, that contains time spent on each answer
+As it mostly happens, our mouse pointer does stays over or around the answer we are looking at.
+So when a user's mouse enters an answer div, the timer for that answer starts and stops only when
+mouse moves over to another answer div.
+At server, I basically store an object for each url user visits, that contains time spent on each answer
 in that url. If a user visits the same url again, a new entry is created. But I can later sum
 up these values over all the entries of a url to get the actual time user spends on answers.
 
