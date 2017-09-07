@@ -16,7 +16,7 @@ answer_time_spent_collection = db.answer_time_spent
 
 @app.route("/", methods=['GET'])
 def index():
-    return render_template('index.html')
+    return render_template('index.html', sign_up_success = session.get('sign_up_success', False), login_failure = session.get('login_failure', False))
 
 @app.route("/sign_up", methods=['GET', 'POST'])
 def sign_up():
@@ -24,6 +24,7 @@ def sign_up():
         if request.form.get('action', None) == 'signup':
             user_data = {"username" : request.form.get('username', None), "password" : request.form.get('password', None)}
             users_collection.insert(user_data)
+            session["sign_up_success"] = True
             return redirect('/')
         elif request.form.get('action', None) == 'login':
             cursor = users_collection.find({"username" : request.form.get('username', None), "password" : request.form.get('password', None)})
@@ -31,6 +32,8 @@ def sign_up():
                 session["username"] = request.form.get('username', None)
                 return redirect('/logged_in')
             else:
+                session["sign_up_success"] = False
+                session["login_failure"] = True
                 return redirect('/')
         else:
             return redirect('/')

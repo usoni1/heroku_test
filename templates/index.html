@@ -5,6 +5,14 @@
     <title>Shoutout</title>
 </head>
 <body>
+    <div>
+        {% if sign_up_success %}
+            Sign Up successful, now login with same information
+        {% elif login_failure %}
+            Username or password incorrect
+        {% else %}
+            Please login or sign up
+    </div>
     <form action="{{ url_for('sign_up') }}" method="post">
         username: <input type="text" name="username"/><br>
         password: <input type="text" name="password"/><br>
