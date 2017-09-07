@@ -54,7 +54,7 @@ def logged_in():
     if(session.get("username", False)):
         ts = time.time()
         st = datetime.datetime.fromtimestamp(ts).strftime('%Y-%m-%d %H %M %S')
-        data = {username : session.get("username", False), timestamp : st}
+        data = {"username" : session.get("username", False), "timestamp" : st}
         login_history_collection.insert(data)
         login_logs = login_history_collection.find({"username" : session.get("username", False)})
         return render_template('logged_in.html', login_logs = login_logs)
