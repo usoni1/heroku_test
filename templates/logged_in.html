@@ -9,6 +9,9 @@
 <form action="{{ url_for('log_out') }}" method="post">
     <input type="submit" name = "action" value="logout" />
 </form>
+<form action="{{ url_for('user_logs') }}" method="post">
+    <input type="submit" name = "action" value="behavioral_logs" />
+</form>
 To start tracking, remember to click on plugin icon after stackoverflow page opens.<br>
 Preferably open in new tab: <a href="https://stackoverflow.com/questions/tagged/java?sort=frequent&pageSize=15">Go to Stackoverflow</a><br>
 <h3>Login History</h3>

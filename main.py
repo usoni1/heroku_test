@@ -8,13 +8,13 @@ client = MongoClient(MONGO_URL)
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'hard to guess string'
 db = client.app76102553
-users_collection = db.users
-starred_collection = db.user_starred
-time_spent_per_page_collection = db.time_spent_per_page
-user_vote_collection = db.user_vote
-user_bookmarked_collection = db.user_bookmarked
-answer_time_spent_collection = db.answer_time_spent
-login_history_collection = db.login_history
+users_collection = db.production_users
+starred_collection = db.production_user_starred
+time_spent_per_page_collection = db.production_time_spent_per_page
+user_vote_collection = db.production_user_vote
+user_bookmarked_collection = db.production_user_bookmarked
+answer_time_spent_collection = db.production_answer_time_spent
+login_history_collection = db.production_login_history
 
 @app.route("/", methods=['GET'])
 def index():
@@ -38,6 +38,7 @@ def sign_up():
             cursor = users_collection.find({"username" : request.form.get('username', None), "password" : request.form.get('password', None)})
             if cursor.count() == 1:
                 session["username"] = request.form.get('username', None)
+                session["login"] = True
                 return redirect('/logged_in')
             else:
                 session["sign_up_success"] = False
@@ -52,13 +53,21 @@ def sign_up():
 def logged_in():
     # starred_collection.find({})
     if(session.get("username", False)):
-        ts = time.time()
-        st = datetime.datetime.fromtimestamp(ts).strftime('%Y-%m-%d %H %M %S')
-        data = {"username" : session.get("username", False), "timestamp" : st}
-        login_history_collection.insert(data)
-        login_logs = login_history_collection.find({"username" : session.get("username", False)})
+        if(session.get("login"), False):
+            ts = time.time()
+            st = datetime.datetime.fromtimestamp(ts).strftime('%Y-%m-%d %H %M %S')
+            data = {"username" : session.get("username", False), "timestamp" : st}
+            login_history_collection.insert(data)
+            session["login"] = False
+        login_logs = login_history_collection.find({"username": session.get("username", False)})
         return render_template('logged_in.html', login_logs = login_logs)
     return redirect('/')
+
+@app.route("/user_logs", methods=['GET', 'POST'])
+def user_logs():
+    if request.method == 'POST':
+        if request.form.get('action', None) == "behavioral_logs":
+            return render_template('user_logs.html')
 
 @app.route("/log_out", methods=['GET', 'POST'])
 def log_out():
@@ -69,6 +78,7 @@ def log_out():
             session["username"] = None
             session["logout"] = True
             return redirect('/')
+
 
 @app.route("/user_star", methods=['GET', 'POST'])
 def starred():
