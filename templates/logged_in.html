@@ -6,5 +6,8 @@
 </head>
 <body>
 <h4>Successfully logged in</h4>
+<form action="{{ url_for('log_out') }}" method="post">
+    <input type="submit" name = "action" value="logout" />
+</form>
 </body>
 </html>

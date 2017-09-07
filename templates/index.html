@@ -10,8 +10,10 @@
             Sign Up successful, now login with same information
         {% elif login_failure %}
             Username or password incorrect
+        {% elif logout %}
+            Logout successful
         {% else %}
-            Please login or sign up
+            Please Login or Sign up
         {% endif %}
     </div>
     <form action="{{ url_for('sign_up') }}" method="post">

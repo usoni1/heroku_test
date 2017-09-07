@@ -18,7 +18,9 @@ answer_time_spent_collection = db.answer_time_spent
 def index():
     if(session.get("username", False)):
         return redirect("/logged_in")
-    return render_template('index.html', sign_up_success = session.get('sign_up_success', False), login_failure = session.get('login_failure', False))
+    return render_template('index.html', sign_up_success = session.get('sign_up_success', False),
+                           login_failure = session.get('login_failure', False),
+                           logout = False)
 
 @app.route("/sign_up", methods=['GET', 'POST'])
 def sign_up():
@@ -45,6 +47,16 @@ def sign_up():
 def logged_in():
     # starred_collection.find({})
     return render_template('logged_in.html')
+
+@app.route("/log_out", methods=['GET', 'POST'])
+def log_out():
+    if request.method == 'POST':
+        if request.form.get('action', None) == "logout":
+            session["sign_up_success"] = False
+            session["login_failure"] = False
+            session["username"] = None
+            return render_template('index.html', sign_up_success=session.get('sign_up_success', False),
+                                   login_failure=session.get('login_failure', False), logout = True)
 
 @app.route("/user_star", methods=['GET', 'POST'])
 def starred():
