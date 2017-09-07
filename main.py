@@ -20,7 +20,7 @@ def index():
         return redirect("/logged_in")
     return render_template('index.html', sign_up_success = session.get('sign_up_success', False),
                            login_failure = session.get('login_failure', False),
-                           logout = False)
+                           logout = session.get('logout', False))
 
 @app.route("/sign_up", methods=['GET', 'POST'])
 def sign_up():
@@ -29,6 +29,8 @@ def sign_up():
             user_data = {"username" : request.form.get('username', None), "password" : request.form.get('password', None)}
             users_collection.insert(user_data)
             session["sign_up_success"] = True
+            session["login_failure"] = False
+            session["logout"] = False
             return redirect('/')
         elif request.form.get('action', None) == 'login':
             cursor = users_collection.find({"username" : request.form.get('username', None), "password" : request.form.get('password', None)})
@@ -38,6 +40,7 @@ def sign_up():
             else:
                 session["sign_up_success"] = False
                 session["login_failure"] = True
+                session["logout"] = False
                 return redirect('/')
         else:
             return redirect('/')
@@ -55,8 +58,8 @@ def log_out():
             session["sign_up_success"] = False
             session["login_failure"] = False
             session["username"] = None
-            return render_template('index.html', sign_up_success=session.get('sign_up_success', False),
-                                   login_failure=session.get('login_failure', False), logout = True)
+            session["logout"] = True
+            return redirect('/')
 
 @app.route("/user_star", methods=['GET', 'POST'])
 def starred():
