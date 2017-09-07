@@ -12,6 +12,7 @@
             Username or password incorrect
         {% else %}
             Please login or sign up
+        {% endif %}
     </div>
     <form action="{{ url_for('sign_up') }}" method="post">
         username: <input type="text" name="username"/><br>
