@@ -10,7 +10,8 @@
     <input type="submit" name = "action" value="logout" />
 </form>
 To start tracking, remember to click on plugin icon after stackoverflow page opens.<br>
-Preferably open in new tab: <a href="https://stackoverflow.com/questions/tagged/java?sort=frequent&pageSize=15">Go to Stackoverflow</a>
+Preferably open in new tab: <a href="https://stackoverflow.com/questions/tagged/java?sort=frequent&pageSize=15">Go to Stackoverflow</a><br>
+<h3>Login History</h3>
 {% for logs in login_logs %}
     Login Time - {{ logs.timestamp }} <br>
 {% endfor %}
