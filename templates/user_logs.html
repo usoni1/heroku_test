@@ -10,6 +10,30 @@
 anything here. But if you want to take a look at my persistent layer, my heroku Id password is
 usoni1@asu.edu and Pjbhai92$# . So just go there, go to this app, there you can select the MongoDB
 server. All the collections with the name starting with production are required logs.
+    <h2>starred_collection_result</h2>
+        {% for logs in starred_collection_result %}
+            {{ logs }} <br>
+        {% endfor %}
 
+        <h2>user_vote_collection_result</h2>
+            {% for logs in user_vote_collection_result %}
+            {{ logs }} <br>
+        {% endfor %}
+        <h2>user_bookmarked_collection_result</h2>
+            {% for logs in user_bookmarked_collection_result %}
+            {{ logs }} <br>
+        {% endfor %}
+        <h2>time_spent_per_page_collection_result</h2>
+            {% for logs in time_spent_per_page_collection_result %}
+            {{ logs }} <br>
+        {% endfor %}
+        <h2>user_searched_collection_result</h2>
+            {% for logs in user_searched_collection_result %}
+            {{ logs }} <br>
+        {% endfor %}
+        <h2>answer_time_spent_collection_result</h2>
+        {% for logs in answer_time_spent_collection_result %}
+            {{ logs }} <br>
+        {% endfor %}
 </body>
 </html>
