@@ -11,5 +11,8 @@
 </form>
 To start tracking, remember to click on plugin icon after stackoverflow page opens.<br>
 Preferably open in new tab: <a href="https://stackoverflow.com/questions/tagged/java?sort=frequent&pageSize=15">Go to Stackoverflow</a>
+{% for logs in login_logs %}
+    Login Time - {{ logs.timestamp }} <br>
+{% endfor %}
 </body>
 </html>

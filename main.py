@@ -1,4 +1,5 @@
 import os
+import time, datetime
 from flask import Flask, render_template, request, redirect, session
 from pymongo import MongoClient
 
@@ -13,6 +14,7 @@ time_spent_per_page_collection = db.time_spent_per_page
 user_vote_collection = db.user_vote
 user_bookmarked_collection = db.user_bookmarked
 answer_time_spent_collection = db.answer_time_spent
+login_history_collection = db.login_history
 
 @app.route("/", methods=['GET'])
 def index():
@@ -50,7 +52,12 @@ def sign_up():
 def logged_in():
     # starred_collection.find({})
     if(session.get("username", False)):
-        return render_template('logged_in.html')
+        ts = time.time()
+        st = datetime.datetime.fromtimestamp(ts).strftime('%Y-%m-%d %H %M %S')
+        data = {username : session.get("username", False), timestamp : st}
+        login_history_collection.insert(data)
+        login_logs = login_history_collection.find({"username" : session.get("username", False)})
+        return render_template('logged_in.html', login_logs = login_logs)
     return redirect('/')
 
 @app.route("/log_out", methods=['GET', 'POST'])
