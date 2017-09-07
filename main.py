@@ -12,7 +12,7 @@ starred_collection = db.user_starred
 time_spent_per_page_collection = db.time_spent_per_page
 user_vote_collection = db.user_vote
 user_bookmarked_collection = db.user_bookmarked
-
+answer_time_spent_collection = db.answer_time_spent
 
 @app.route("/", methods=['GET'])
 def index():
@@ -67,6 +67,13 @@ def user_bookmarked():
     data = request.get_json()
     data["username"] = session.get('username', None)
     user_bookmarked_collection.insert(data)
+    return redirect('/')
+
+@app.route("/answer_time_spent", methods = ['GET', 'POST'])
+def answer_time_spent():
+    data = request.get_json()
+    data["username"] = session.get('username', None)
+    answer_time_spent_collection.insert(data)
     return redirect('/')
 
 if __name__ == "__main__":
