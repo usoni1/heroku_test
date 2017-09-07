@@ -68,19 +68,7 @@ def logged_in():
 def user_logs():
     if request.method == 'POST':
         if request.form.get('action', None) == "behavioral_logs":
-            starred_collection_result = starred_collection.find({"username": session.get("username", False)})
-            user_vote_collection_result = user_vote_collection.find({"username": session.get("username", False)})
-            user_bookmarked_collection_result = user_bookmarked_collection.find({"username": session.get("username", False)})
-            time_spent_per_page_collection_result = time_spent_per_page_collection.find({"username": session.get("username", False)})
-            user_searched_collection_result = user_searched_collection.find({"username": session.get("username", False)})
-            answer_time_spent_collection_result = answer_time_spent_collection.find({"username": session.get("username", False)})
-            return render_template('user_logs.html', starred_collection_result = starred_collection_result,
-                                   user_vote_collection_result = user_vote_collection_result,
-                                   user_bookmarked_collection_result = user_bookmarked_collection_result,
-                                   time_spent_per_page_collection_result = time_spent_per_page_collection_result,
-                                   user_searched_collection_result = user_searched_collection_result,
-                                   answer_time_spent_collection_result = answer_time_spent_collection_result
-                                   )
+            return render_template('user_logs.html')
 
 @app.route("/log_out", methods=['GET', 'POST'])
 def log_out():
