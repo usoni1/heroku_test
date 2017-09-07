@@ -84,35 +84,40 @@ def log_out():
 def starred():
     data = request.get_json()
     data["username"] = session.get('username', None)
-    starred_collection.insert(data)
+    if data["username"] is not None:
+        starred_collection.insert(data)
     return redirect('/')
 
 @app.route("/url_time_spent", methods=['GET', 'POST'])
 def url_time_spent():
     data = request.get_json()
     data["username"] = session.get('username', None)
-    time_spent_per_page_collection.insert(data)
+    if data["username"] is not None:
+        time_spent_per_page_collection.insert(data)
     return redirect('/')
 
 @app.route("/user_vote", methods=['GET', 'POST'])
 def user_vote():
     data = request.get_json()
     data["username"] = session.get('username', None)
-    user_vote_collection.insert(data)
+    if data["username"] is not None:
+        user_vote_collection.insert(data)
     return redirect('/')
 
 @app.route("/user_bookmarked", methods = ['GET', 'POST'])
 def user_bookmarked():
     data = request.get_json()
     data["username"] = session.get('username', None)
-    user_bookmarked_collection.insert(data)
+    if data["username"] is not None:
+        user_bookmarked_collection.insert(data)
     return redirect('/')
 
 @app.route("/answer_time_spent", methods = ['GET', 'POST'])
 def answer_time_spent():
     data = request.get_json()
     data["username"] = session.get('username', None)
-    answer_time_spent_collection.insert(data)
+    if data["username"] is not None:
+        answer_time_spent_collection.insert(data)
     return redirect('/')
 
 if __name__ == "__main__":
