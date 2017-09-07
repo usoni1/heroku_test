@@ -42,18 +42,21 @@ def logged_in():
 @app.route("/user_star", methods=['GET', 'POST'])
 def starred():
     data = request.get_json()
+    data["username"] = session.get('username', None)
     starred_collection.insert(data)
     return redirect('/')
 
 @app.route("/url_time_spent", methods=['GET', 'POST'])
 def url_time_spent():
     data = request.get_json()
+    data["username"] = session.get('username', None)
     url_time_spent_collection.insert(data)
     return redirect('/')
 
 @app.route("/user_vote", methods=['GET', 'POST'])
 def user_vote():
     data = request.get_json()
+    data["username"] = session.get('username', None)
     user_vote_collection.insert(data)
     return redirect('/')
 
