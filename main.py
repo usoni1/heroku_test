@@ -49,7 +49,9 @@ def sign_up():
 @app.route("/logged_in", methods=['GET'])
 def logged_in():
     # starred_collection.find({})
-    return render_template('logged_in.html')
+    if(session.get("username", False)):
+        return render_template('logged_in.html')
+    return redirect('/')
 
 @app.route("/log_out", methods=['GET', 'POST'])
 def log_out():

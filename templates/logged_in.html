@@ -5,9 +5,10 @@
     <title>User Logged in</title>
 </head>
 <body>
-<h4>Successfully logged in</h4>
+<h4>Successfully logged in user: {{ session['username'] }}</h4>
 <form action="{{ url_for('log_out') }}" method="post">
     <input type="submit" name = "action" value="logout" />
 </form>
+<a href="https://stackoverflow.com/questions/tagged/java?sort=frequent&pageSize=15">Go to Stackoverflow</a>
 </body>
 </html>
